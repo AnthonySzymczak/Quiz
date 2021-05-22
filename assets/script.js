@@ -72,6 +72,7 @@ let trackerCorrect = 0;
 //Wrong answer Tracker
 let trackerWrong = 0;
 
+
 startButton.addEventListener("click", startQuiz);
 
 function startQuiz() {
@@ -79,21 +80,62 @@ function startQuiz() {
   quiz.setAttribute("class", "hide");
   display();
 }
-function display() {
- answers.innerHTML="";
-  let current = questions[currentQuestion];
+//Start timer Function
+/*
+let timer = setInterval(startTimer, 1000)
+function startTimer(){
     
+  */
+  document.getElementById('allTime').innerHTML =
+    001 + ":" + 10;
+  startTimer();
+  
+  function startTimer() {
+    let presentTime = document.getElementById('allTime').innerHTML;
+    let timeArray = presentTime.split(/[:]+/);
+    let m = timeArray[0];
+    let s = checkSecond((timeArray[1] - 1));
+    if(s==59){m=m-1}
+    if(m<=0 && s<=0){alert('Time is up! Thanks for playing!!')}
+    
+    
+    document.getElementById('allTime').innerHTML =
+    m + ":" + s;
+    //console.log(m)
+    setTimeout(startTimer, 1000);
+    }
+    function checkSecond(sec) {
+      if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+      if (sec < 0) {sec = "59"};
+      return sec;
+    }
+  
+  /*  
+    if (allTime) <= 0){
+      document.getElementById("allTime").innerHTML = "You're out of time! Thanks for playing.";
+    } else{
+      document.getElementById("allTime").innerHTML = timer + " seconds left";
+    }
+  */
+
+
+
+
+function display() {
+  answers.innerHTML="";
+  let current = questions[currentQuestion];
+  
   quest.innerHTML = current.question;
-    for (let i = 0; i < current.answer.length; i++){
-      let answer = current.answer[i];
+  for (let i = 0; i < current.answer.length; i++){
+    let answer = current.answer[i];
     let answer1 = document.createElement("button");
     answer1.setAttribute("id", i);
     answer1.innerHTML = answer;
     answers.appendChild(answer1);
-      answer1.addEventListener('click', function(e){
-        compareAnswer(e);
-        
-        
+    answer1.addEventListener('click', function(e){
+      compareAnswer(e);
+      nextQuestion();
+      
       })
       
     }
@@ -107,33 +149,25 @@ function display() {
     //b. get correct answer of question while comparing to button you click on
     const correctAnswer = questions[currentQuestion].correctanswer;
     //c. if answer = correct add one to score. else add to tracker wrong
-    if (id === correctAnswer){
+    if (id == correctAnswer){
       //Is the right answer
       console.log("Good answer")
       trackerCorrect++;
       console.log("Correct questions: ",trackerCorrect);
-      
+      console.log("Wrong questions: ",trackerWrong);
     } else {
       //Is the wrong answer
       console.log("Bad answer")
       trackerWrong++;
+      console.log("Correct questions: ",trackerCorrect);
       console.log("Wrong questions: ",trackerWrong);
-      timer--;
+      timer--, 10;
 
           
         }
     }
-    function startTimer(){
-      timer = setInterval(function(){
-        if (timeLeft <= 0){
-          clearInterval(timer);
-          highScore()
-          document.getElementById("allTime").innerHTML = "You're out of time!";
-        } else{
-          document.getElementById("allTime").innerHTML = timeLeft + "seconds";
-        }
-      })
-    }
+    
+    
 
   function nextQuestion(){
     //Verify if the quiz finished. is currentQuestion < questions.length
@@ -145,6 +179,7 @@ function display() {
   
   //e. print high score at end of quiz and store it.
 
+// Highscore function
   function highScore(){
     var score = 0;
     var highscore = localStorage.getItem("highscore");
