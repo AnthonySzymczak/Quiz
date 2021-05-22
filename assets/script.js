@@ -144,7 +144,7 @@ function compareAnswer(e){
     trackerWrong++;
     console.log("Correct questions: ",trackerCorrect);
     console.log("Wrong questions: ",trackerWrong);
-    nextQuestion();
+  //  nextQuestion();
     //sec--, 10;
     
   }
