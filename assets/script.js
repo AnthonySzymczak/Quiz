@@ -3,59 +3,69 @@ const questions = [
     question: "Which of these is not a data type :",
     answer: ["Boolean", "Number", "String", "javascript"],
     correctanswer: 3,
-  },
-   {
-    question: "What is my name: ",
-    answer: ["Antos","Anthony","Antonio","Tony"],
+  }, 
+  {    
+    question: "Inside which HTML element do we put the JavaScript?",
+    answer: ["'p'","'li'","'script'","'ul'"],
     correctanswer: 2,
-
-  }
-  /*, {    
-    question: ""
-    answer [,,,]
-    correctanswer:
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "Where is the correct place to insert a JavaScript?",
+    answer: ["head/body tags","Title","Inside 'p' tags","In an array"],
+    correctanswer: 0,
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "The external JavaScript file must contain the 'script' tag.",
+    answer: ["True","False"],
+    correctanswer: 1,
   }, 
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "How can you add a comment in a JavaScript?",
+    answer: ["||","**","/--/","//"],
+    correctanswer: 3,
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "JavaScript is the same as Java.",
+    answer: ["False","True"],
+    correctanswer: 0,
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "How do you declare a JavaScript variable?",
+    answer: ["var","call","if","for"],
+    correctanswer: 0,
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
+    question: "Is JavaScript case-sensitive?",
+    answer: ["only on weekends","sometimes","yes","no"],
+    correctanswer: 2,
   },
   {
-    question: ""
-    answer [,,,]
-    correctanswer:
-  }*/
+    question: "Which event occurs when the user clicks on an HTML element?",
+    answer: ["offclick","onclick","click.here","click.on"],
+    correctanswer: 1,
+  },
+  {
+   question: "Which is the creators name: ",
+   answer: ["Antos","Anthony","Antonio","Tony"],
+   correctanswer: 1,
+
+ }
 ];
+//Start Button ID 
 const startButton = document.getElementById("Start");
+
+//quiz ID
 const quiz = document.getElementById("quiz");
+
+//Questions ID
 const quest = document.getElementById("questions");
+
+//answers ID
 const answers = document.getElementById("answers");
+
+//current question
 let currentQuestion = 0;
+
 //Correct Answer Tracker
 let trackerCorrect = 0;
 
@@ -65,7 +75,6 @@ let trackerWrong = 0;
 startButton.addEventListener("click", startQuiz);
 
 function startQuiz() {
-//  const questionTimer = 100;
   //  console.log('startQuiz')
   quiz.setAttribute("class", "hide");
   display();
@@ -81,20 +90,61 @@ function display() {
     answer1.innerHTML = answer;
     answers.appendChild(answer1);
       answer1.addEventListener('click', function(e){
-        compareAnswer(e)
-        nextQuestion()
+        compareAnswer(e);
+        
+        nextQuestion();
+        
       })
       
     }
 }
   function compareAnswer(e){
-    // a. get some info out of the button youre clicking using e(since e calls )
-    //b. get correct answer of question while comparing to button you click on
-    //c. if answer = correct add one to score. add to tracker wrong
-  }
+    
+        // a. get some info out of the button youre clicking using e(since e calls stored click function)
+        //b. get correct answer of question while comparing to button you click on
+        //c. if answer = correct add one to score. else add to tracker wrong
+  
+/*    if (answer1 === true) {
+      trackerCorrect++;
+    }else {
+        trackerWrong++;
+        //d. subtract time from timer if time wrong
+        timer--;
+      }*/
+    }
+    function startTimer(){
+      timer = setInterval(function(){
+        if (timeLeft <= 0){
+          clearInterval(timer);
+          highScore()
+          document.getElementById("allTime").innerHTML = "You're out of time!";
+        } else{
+          document.getElementById("allTime").innerHTML = timeLeft + "seconds";
+        }
+      })
+    }
+
   function nextQuestion(){
     
     currentQuestion++;
     display();
   }  
+  
+  
+  //e. print high score at end of quiz and store it.
 
+  function highScore(){
+    var score = 0;
+    var highscore = localStorage.getItem("highscore");
+    
+    if(highscore !== null){
+        if (score > highscore) {
+            localStorage.setItem("highscore", score);      
+        }
+    }
+    else{
+        localStorage.setItem("highscore", score);
+    }
+  } 
+ // console.log(highScore);
+  
