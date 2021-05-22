@@ -79,15 +79,8 @@ function startQuiz() {
   //  console.log('startQuiz')
   quiz.setAttribute("class", "hide");
   display();
-}
-//Start timer Function
-/*
-let timer = setInterval(startTimer, 1000)
-function startTimer(){
-    
-  */
   document.getElementById('allTime').innerHTML =
-    001 + ":" + 10;
+  001 + ":" + 10;
   startTimer();
   
   function startTimer() {
@@ -103,23 +96,14 @@ function startTimer(){
     m + ":" + s;
     //console.log(m)
     setTimeout(startTimer, 1000);
-    }
-    function checkSecond(sec) {
-      if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
-      if (sec < 0) {sec = "59"};
-      return sec;
-    }
-  
-  /*  
-    if (allTime) <= 0){
-      document.getElementById("allTime").innerHTML = "You're out of time! Thanks for playing.";
-    } else{
-      document.getElementById("allTime").innerHTML = timer + " seconds left";
-    }
-  */
-
-
-
+  }
+  function checkSecond(sec) {
+    if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+    if (sec < 0) {sec = "59"};
+    return sec;
+    
+  }
+}
 
 function display() {
   answers.innerHTML="";
@@ -136,62 +120,73 @@ function display() {
       compareAnswer(e);
       nextQuestion();
       
-      })
-      
-    }
+    })
+    
   }
-  function compareAnswer(e){
-    console.log(e.target.id);
-    
-    // a. get some info out of the button youre clicking using e(since e calls stored click function)
+}
+function compareAnswer(e){
+  // a. get some info out of the button youre clicking using e(since e calls stored click function)
+  console.log(e.target.id);
+  //b. get correct answer of question while comparing to button you click on
     const id = e.target.id;
-    
-    //b. get correct answer of question while comparing to button you click on
-    const correctAnswer = questions[currentQuestion].correctanswer;
     //c. if answer = correct add one to score. else add to tracker wrong
-    if (id == correctAnswer){
-      //Is the right answer
-      console.log("Good answer")
-      trackerCorrect++;
-      console.log("Correct questions: ",trackerCorrect);
-      console.log("Wrong questions: ",trackerWrong);
-    } else {
-      //Is the wrong answer
-      console.log("Bad answer")
-      trackerWrong++;
-      console.log("Correct questions: ",trackerCorrect);
-      console.log("Wrong questions: ",trackerWrong);
-      timer--, 10;
-
-          
-        }
-    }
+  
+    const correctAnswer = questions[currentQuestion].correctanswer;
+  if (id == correctAnswer){
+    //Is the right answer
+    console.log("Good answer")
+    trackerCorrect++;
+    console.log("Correct questions: ",trackerCorrect);
+    console.log("Wrong questions: ",trackerWrong);
+  } else {
+    //Is the wrong answer
+    console.log("Bad answer")
+    trackerWrong++;
+    console.log("Correct questions: ",trackerCorrect);
+    console.log("Wrong questions: ",trackerWrong);
+    sec--, 10;
     
-    
-
-  function nextQuestion(){
-    //Verify if the quiz finished. is currentQuestion < questions.length
-    
-    currentQuestion++;
-    display();
-  }  
+  }
+  }
   
   
-  //e. print high score at end of quiz and store it.
+  
+
+function nextQuestion(){
+  //Verify if the quiz finished. is currentQuestion < questions.length
+
+  currentQuestion++;
+  display();
+}  
+//e. print high score at end of quiz and store it.
 
 // Highscore function
-  function highScore(){
-    var score = 0;
-    var highscore = localStorage.getItem("highscore");
-    
-    if(highscore !== null){
-        if (score > highscore) {
-            localStorage.setItem("highscore", score);      
-        }
-    }
-    else{
-        localStorage.setItem("highscore", score);
-    }
-  } 
- // console.log(highScore);
+function highScore(){
+  var score = 0;
+  var highscore = localStorage.getItem("highscore");
   
+  if(highscore !== null){
+    if (score > highscore) {
+      localStorage.setItem("highscore", score);      
+    }
+  }
+  else{
+    localStorage.setItem("highscore", score);
+  }
+} 
+// console.log(highScore);
+
+
+/*  
+if (allTime) <= 0){
+  document.getElementById("allTime").innerHTML = "You're out of time! Thanks for playing.";
+} else{
+  document.getElementById("allTime").innerHTML = timer + " seconds left";
+}
+*/
+//Start timer Function
+/*
+let timer = setInterval(startTimer, 1000)
+function startTimer(){
+    
+  */
