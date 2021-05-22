@@ -87,30 +87,41 @@ function display() {
     for (let i = 0; i < current.answer.length; i++){
       let answer = current.answer[i];
     let answer1 = document.createElement("button");
+    answer1.setAttribute("id", i);
     answer1.innerHTML = answer;
     answers.appendChild(answer1);
       answer1.addEventListener('click', function(e){
         compareAnswer(e);
         
-        nextQuestion();
         
       })
       
     }
-}
+  }
   function compareAnswer(e){
+    console.log(e.target.id);
     
-        // a. get some info out of the button youre clicking using e(since e calls stored click function)
-        //b. get correct answer of question while comparing to button you click on
-        //c. if answer = correct add one to score. else add to tracker wrong
-  
-/*    if (answer1 === true) {
+    // a. get some info out of the button youre clicking using e(since e calls stored click function)
+    const id = e.target.id;
+    
+    //b. get correct answer of question while comparing to button you click on
+    const correctAnswer = questions[currentQuestion].correctanswer;
+    //c. if answer = correct add one to score. else add to tracker wrong
+    if (id === correctAnswer){
+      //Is the right answer
+      console.log("Good answer")
       trackerCorrect++;
-    }else {
-        trackerWrong++;
-        //d. subtract time from timer if time wrong
-        timer--;
-      }*/
+      console.log("Correct questions: ",trackerCorrect);
+      
+    } else {
+      //Is the wrong answer
+      console.log("Bad answer")
+      trackerWrong++;
+      console.log("Wrong questions: ",trackerWrong);
+      timer--;
+
+          
+        }
     }
     function startTimer(){
       timer = setInterval(function(){
@@ -125,6 +136,7 @@ function display() {
     }
 
   function nextQuestion(){
+    //Verify if the quiz finished. is currentQuestion < questions.length
     
     currentQuestion++;
     display();
