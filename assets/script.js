@@ -51,6 +51,8 @@ const questions = [
 
  }
 ];
+//highscores ID
+let highscoreButton = document.getElementById("high-score");
 //Start Button ID 
 const startButton = document.getElementById("Start");
 
@@ -74,6 +76,7 @@ let trackerWrong = 0;
 
 
 startButton.addEventListener("click", startQuiz);
+highscoreButton.addEventListener("click", highScore);
 
 function startQuiz() {
   //  console.log('startQuiz')
@@ -145,7 +148,7 @@ function compareAnswer(e){
     console.log("Correct questions: ",trackerCorrect);
     console.log("Wrong questions: ",trackerWrong);
   //  nextQuestion();
-    //sec--, 10;
+   // sec- 10;
     
   }
   }
@@ -163,31 +166,18 @@ function nextQuestion(){
 
 // Highscore function
 function highScore(){
-  var score = 0;
+  quiz.setAttribute("class", "hide");
+
   var highscore = localStorage.getItem("highscore");
   
   if(highscore !== null){
-    if (score > highscore) {
-      localStorage.setItem("highscore", score);      
+    if (trackerCorrect > highscore) {
+      localStorage.setItem("highscore", trackerCorrect);      
+      console.log(highscore);
     }
   }
   else{
-    localStorage.setItem("highscore", score);
+    localStorage.setItem("highscore", trackerCorrect);
+    console.log(highscore);
   }
 } 
-// console.log(highScore);
-
-
-/*  
-if (allTime) <= 0){
-  document.getElementById("allTime").innerHTML = "You're out of time! Thanks for playing.";
-} else{
-  document.getElementById("allTime").innerHTML = timer + " seconds left";
-}
-*/
-//Start timer Function
-/*
-let timer = setInterval(startTimer, 1000)
-function startTimer(){
-    
-  */
